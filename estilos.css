@@ -1,0 +1,40 @@
+.jugadores {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding: 30px;
+  font-weight: 600;
+}
+
+.jugador {
+  display: flex;
+  flex-direction: column; 
+}
+
+.jugador img {
+  width: 550px;           
+  height: 600px;          
+  object-fit: cover;      
+}
+
+.votar {
+  text-align: center;
+  padding: 30px 0 50px;
+}
+
+.boton {
+  display: inline-block;
+  background: #d4af37;
+  color: #0a2472;
+  font-weight: bold;
+  font-size: 20px;
+  text-decoration: none;
+  padding: 15px 40px;
+  border-radius: 8px;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.boton:hover {
+  background: #f1c94b;
+  transform: scale(1.05);
+}

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vota - Balón de Oro</title>
+  <style>
+    :root {
+      --azul: #0a2472;
+      --azul-oscuro: #061746;
+      --oro: #d4af37;
+      --oro-claro: #f1c94b;
+      --blanco: #f8f5ec;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Georgia, serif;
+      color: var(--blanco);
+      background:
+        radial-gradient(circle at 50% 0%, #1a3a9c 0%, transparent 55%),
+        linear-gradient(180deg, var(--azul) 0%, var(--azul-oscuro) 100%);
+    }
+
+    header {
+      text-align: center;
+      padding: 50px 20px 20px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      color: var(--oro);
+      letter-spacing: 3px;
+      text-shadow: 0 3px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    header p {
+      margin: 12px 0 0;
+      font-size: 1.1rem;
+      opacity: 0.85;
+    }
+
+    .linea {
+      width: 120px;
+      height: 3px;
+      margin: 20px auto 0;
+      background: linear-gradient(90deg, transparent, var(--oro), transparent);
+    }
+
+    .candidatos {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    /* La tarjeta entera es clicable gracias al label */
+    .candidato {
+      position: relative;
+      display: block;
+      cursor: pointer;
+      border: 2px solid rgba(212, 175, 55, 0.35);
+      border-radius: 14px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.05);
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .candidato:hover {
+      transform: translateY(-4px);
+      border-color: var(--oro);
+    }
+
+    .candidato input {
+      position: absolute;
+      opacity: 0;
+    }
+
+    .candidato img {
+      display: block;
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .info {
+      padding: 14px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .info h3 { margin: 0; color: var(--oro); font-size: 1.2rem; }
+    .info span { font-size: 0.9rem; opacity: 0.8; }
+
+    /* Círculo que indica la selección */
+    .marca {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border: 2px solid var(--oro);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: transparent;
+      font-weight: bold;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    /* Estado seleccionado */
+    .candidato:has(input:checked) {
+      border-color: var(--oro-claro);
+      box-shadow: 0 0 0 3px var(--oro), 0 10px 30px rgba(212, 175, 55, 0.35);
+    }
+
+    .candidato:has(input:checked) .marca {
+      background: var(--oro);
+      color: var(--azul);
+    }
+
+    .candidato:has(input:focus-visible) {
+      outline: 3px dashed var(--blanco);
+      outline-offset: 4px;
+    }
+
+    .acciones {
+      text-align: center;
+      padding: 10px 20px 30px;
+    }
+
+    .enviar {
+      font-family: inherit;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--azul);
+      background: linear-gradient(180deg, var(--oro-claro), var(--oro));
+      border: none;
+      border-radius: 10px;
+      padding: 15px 50px;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+      transition: transform 0.2s;
+    }
+
+    .enviar:hover { transform: scale(1.05); }
+
+    #mensaje {
+      min-height: 1.5em;
+      margin-top: 18px;
+      font-size: 1.1rem;
+      color: var(--oro-claro);
+    }
+
+    .volver {
+      display: block;
+      text-align: center;
+      padding-bottom: 40px;
+      color: var(--blanco);
+      opacity: 0.8;
+    }
+
+    @media (max-width: 600px) {
+      .candidatos { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>VOTA POR TU FAVORITO</h1>
+    <p>Elige un jugador y confirma tu voto</p>
+    <div class="linea"></div>
+  </header>
+
+  <form id="formulario">
+    <section class="candidatos">
+
+      <label class="candidato">
+        <input type="radio" name="voto" value="Jude Bellingham">
+        <img src="bellingham.jpg" alt="Jude Bellingham">
+        <div class="info">
+          <div><h3>Jude Bellingham</h3><span>Real Madrid</span></div>
+          <div class="marca">✓</div>
+        </div>
+      </label>
+
+      <label class="candidato">
+        <input type="radio" name="voto" value="Pau Cubarsí">
+        <img src="cubarsi.jpg" alt="Pau Cubarsí">
+        <div class="info">
+          <div><h3>Pau Cubarsí</h3><span>Barcelona</span></div>
+          <div class="marca">✓</div>
+        </div>
+      </label>
+
+      <label class="candidato">
+        <input type="radio" name="voto" value="Marc Cucurella">
+        <img src="cucurella.jpg" alt="Marc Cucurella">
+        <div class="info">
+          <div><h3>Marc Cucurella</h3><span>Real Madrid / Chelsea</span></div>
+          <div class="marca">✓</div>
+        </div>
+      </label>
+
+      <label class="candidato">
+        <input type="radio" name="voto" value="Ousmane Dembélé">
+        <img src="dembele.jpg" alt="Ousmane Dembélé">
+        <div class="info">
+          <div><h3>Ousmane Dembélé</h3><span>Barcelona</span></div>
+          <div class="marca">✓</div>
+        </div>
+      </label>
+
+    </section>
+
+    <div class="acciones">
+      <button type="submit" class="enviar">Enviar mi voto</button>
+      <p id="mensaje" role="status"></p>
+    </div>
+  </form>
+
+  <a href="paginaweb.html" class="volver">← Volver a los nominados</a>
+
+  <script>
+    document.getElementById("formulario").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var elegido = document.querySelector('input[name="voto"]:checked');
+      var mensaje = document.getElementById("mensaje");
+      mensaje.textContent = elegido
+        ? "¡Gracias! Has votado por " + elegido.value + "."
+        : "Elige un jugador antes de enviar tu voto.";
+    });
+  </script>
+
+</body>
+</html>
